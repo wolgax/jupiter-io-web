@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="keywords" content="Solana, jup.ag, Jupiter, Trading" />
+  <meta name="author" content="Jupiter's Io" />
+  <title>☀️🪐 JUPITER'S IO WEB</title>
+
+  <script src="https://plugin.jup.ag/plugin-v1.js" data-preload defer></script>
+
+  <style>
+    html, body {
+      font-family: sans-serif;
+      background-color: #0b0e13;
+      color: white;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      background-color: #10171f;
+      color: #f0f0f0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    #jupiter-plugin {
+      width: 100%;
+      min-height: 500px; /* фиксируем высоту, чтобы не мигало */
+      overflow: hidden;
+      background-color: transparent;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 0 10px;
+      }
+
+      #jupiter-plugin {
+        min-height: 450px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="inputs">
+      <input type="text" id="mintInput" placeholder="📍 CA" />
+      <input type="number" id="amountInput" placeholder="🔢 Amount" step="0.0001" />
+    </div>
+    <div id="jupiter-plugin"></div>
+  </div>
+
+  <script>
+    const DEFAULT_MINT = "So11111111111111111111111111111111111111112";
+    const USDC_MINT = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
+    const DEFAULT_SOL = 1;
+    const DEBOUNCE_MS = 350;
+
+    let initialParamsFromURL = false;
+    let lastApplied = { mint: null, amount: null };
+    let debounceTimer = null;
+
+    const mintEl = document.getElementById("mintInput");
+    const amtEl = document.getElementById("amountInput");
+
+    function solToLamports(solAmount) {
+      const n = Number.isFinite(solAmount) ? solAmount : 0;
+      return Math.floor(n * 1_000_000_000).toString();
+    }
+
+    function readInputs() {
+      const mint = (mintEl.value || "").trim() || DEFAULT_MINT;
+      const amount = parseFloat(amtEl.value);
+      const amountFixed = Number.isFinite(amount) ? amount : DEFAULT_SOL;
+      return { mint, amount: amountFixed };
+    }
+
+    function updateURL(mint, amount) {
+      if (!initialParamsFromURL && mint === DEFAULT_MINT && amount === DEFAULT_SOL) return;
+      const p = new URLSearchParams();
+      p.set("CA", mint);
+      p.set("Amount", String(amount));
+      history.replaceState(null, "", `${location.pathname}?${p.toString()}`);
+    }
+
+    function scheduleReinit() {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        const { mint, amount } = readInputs();
+        if (mint === lastApplied.mint && amount === lastApplied.amount) return;
+
+        updateURL(mint, amount);
+
+        ensureJupiterReady().then(() => {
+          window.Jupiter.init({
+            displayMode: "integrated",
+            integratedTargetId: "jupiter-plugin",
+            containerStyles: { height: "500px" },
+            branding: { name: "Jupiter's Io" },
+            formProps: {
+              initialAmount: solToLamports(amount),
+              initialInputMint: mint,
+              initialOutputMint: USDC_MINT
+            }
+          });
+          lastApplied = { mint, amount };
+        });
+      }, DEBOUNCE_MS);
+    }
+
+    function ensureJupiterReady() {
+      if (window.Jupiter) return Promise.resolve();
+      return new Promise((resolve) => {
+        const i = setInterval(() => {
+          if (window.Jupiter) {
+            clearInterval(i);
+            resolve();
+          }
+        }, 50);
+      });
+    }
+
+    function initFromURL() {
+      const params = new URLSearchParams(location.search);
+      const urlMint = params.get("CA");
+      const urlAmount = parseFloat(params.get("Amount"));
+
+      if (urlMint || Number.isFinite(urlAmount)) {
+        initialParamsFromURL = true;
+        mintEl.value = urlMint || DEFAULT_MINT;
+        amtEl.value = Number.isFinite(urlAmount) ? urlAmount : DEFAULT_SOL;
+      } else {
+        mintEl.value = DEFAULT_MINT;
+        amtEl.value = DEFAULT_SOL;
+      }
+
+      // Plugin init
+      const { mint, amount } = readInputs();
+      ensureJupiterReady().then(() => {
+        window.Jupiter.init({
+          displayMode: "integrated",
+          integratedTargetId: "jupiter-plugin",
+          containerStyles: { height: "500px" },
+          branding: {
+            name: "Jupiter's Io",
+            logoUri: "https://raw.githubusercontent.com/Hidden-Seeds/jup-io/37dafd40aa7428867fd55f1034e41d1491805fba/Io.png"
+          },
+          formProps: {
+            initialAmount: solToLamports(amount),
+            initialInputMint: mint,
+            initialOutputMint: USDC_MINT
+          }
+        });
+        lastApplied = { mint, amount };
+      });
+    }
+
+    mintEl.addEventListener("input", scheduleReinit);
+    amtEl.addEventListener("input", scheduleReinit);
+    window.addEventListener("load", initFromURL);
+  </script>
+</body>
+</html>
+
