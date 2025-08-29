@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JUPITER'S IO WEB</title>
+  <title>JUPITER'S IO WEB 0.5 fee</title>
   <script src="https://plugin.jup.ag/plugin-v1.js" data-preload defer></script>
   <style>
     :root {
@@ -22,7 +22,7 @@
       font-family: sans-serif;
       background-color: #0b0e13;
       color: white;
-      overflow: hidden;
+      overflow-x: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -31,7 +31,6 @@
 
     a {
       color: #c7f284;
-      text-decoration: none;
     }
 
     a:hover {
@@ -79,7 +78,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      width: 97%;
+      width: 100%;
     }
 
     .form-group {
@@ -88,9 +87,10 @@
     }
 
     .amount-buttons {
-      display: flex;
+
       gap: 10px;
       margin-top: -65px;
+	  justify-content: center;
     }
 
     .amount-buttons button {
@@ -176,7 +176,7 @@
     <div class="top-bar">
       <input type="text" id="mintInput" readonly>
       <div id="faqBtn" class="icon-btn">
-        <img alt="faq" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNjN2YyODQiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1jaXJjbGUtcXVlc3Rpb24tbWFyay1pY29uIGx1Y2lkZS1jaXJjbGUtcXVlc3Rpb24tbWFyayI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz48cGF0aCBkPSJNOS4wOSA5YTMgMyAwIDAgMSA1LjgzIDFjMCAyLTMgMy0zIDMiLz48cGF0aCBkPSJNMTIgMTdoLjAxIi8+PC9zdmc+"/>
+        <img alt="faq" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNjN2YyODQiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1iZWxsLWljb24gbHVjaWRlLWJlbGwiPjxwYXRoIGQ9Ik0xMC4yNjggMjFhMiAyIDAgMCAwIDMuNDY0IDAiLz48cGF0aCBkPSJNMy4yNjIgMTUuMzI2QTEgMSAwIDAgMCA0IDE3aDE2YTEgMSAwIDAgMCAuNzQtMS42NzNDMTkuNDEgMTMuOTU2IDE4IDEyLjQ5OSAxOCA4QTYgNiAwIDAgMCA2IDhjMCA0LjQ5OS0xLjQxMSA1Ljk1Ni0yLjczOCA3LjMyNiIvPjwvc3ZnPg=="/>
       </div>
       <div id="infoBtn" class="icon-btn">
         <img alt="info" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNjN2YyODQiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1zaGllbGQtY2hlY2staWNvbiBsdWNpZGUtc2hpZWxkLWNoZWNrIj48cGF0aCBkPSJNMjAgMTNjMCA1LTMuNSA3LjUtNy42NiA4Ljk1YTEgMSAwIDAgMS0uNjctLjAxQzcuNSAyMC41IDQgMTggNCAxM1Y2YTEgMSAwIDAgMSAxLTFjMiAwIDQuNS0xLjIgNi4yNC0yLjcyYTEuMTcgMS4xNyAwIDAgMSAxLjUyIDBDMTQuNTEgMy44MSAxNyA1IDE5IDVhMSAxIDAgMCAxIDEgMXoiLz48cGF0aCBkPSJtOSAxMiAyIDIgNC00Ii8+PC9zdmc+"/>
@@ -187,21 +187,23 @@
 
     <div class="inputs">
       <div class="form-group amount-buttons">
-        <button id="btn1">0.1</button>
-        <button id="btn2">0.2</button>
-        <button id="btn3">0.3</button>
-        <button id="btn5">5</button>
+        <button id="btn1">0.05</button>
+        <button id="btn2">0.1</button>
+        <button id="btn3">0.5</button>
         <button id="btnEdit">⚙️</button>
       </div>
     </div>
   </div>
 
   <div id="faqPopup" class="popup">
-    Similar to Jupiter's moon Io, this site functions as a satellite platform for the Jupiter One Touch Trade. It can be accessed at <a href="https://github.com/Hidden-Seeds/jupiter-one-touch-trade">github</a>
+    <p>This popup will display notifications related to the development of the extension and website bridge, discounts, and other announcements. Only the sources explicitly listed here shall be deemed official. Any other sources are not official and may be misleading. For further information, please refer to the Frequently Asked Questions.</p>
+	<p><a href="https://">FAQ</a> | <a href="https://">Github</a> | <a href="https://">Telegram</a></p>
   </div>
 
   <div id="infoPopup" class="popup">
-    This website interacts directly with the Jupiter platform and does not collect, store, or process login credentials, passwords, or any other sensitive personal information. Users are strongly advised to use burner wallets within their cryptocurrency wallets. For more information, please refer to <a href="https://dev.jup.ag/docs/misc/privacy-policy">Jupiter Privacy Policy</a>
+    <p>This website interacts directly with the Jupiter platform and does not collect, store, or process login credentials, passwords, or any other confidential or sensitive information. This process is handled entirely on the Jupiter side.</p>
+	<p>The website functions as a simple bridge with low transaction fees between the extension and Jupiter, as developing an extension capable of interacting with multiple websites (terminal - extension - jupiter) is technically hard. You may consider using a disposable (burner) wallet through your cryptocurrency wallet, which removes the need for confirmation before each transaction.</p>
+	<p>For additional details about your privacy please refer to <a href="https://dev.jup.ag/docs/misc/privacy-policy">Jupiter’s Privacy Policy</a></p>
   </div>
 
   <script>
@@ -214,7 +216,7 @@
     const container = document.querySelector('.container');
     const overlay = document.getElementById('overlay');
     const mintEl = document.getElementById("mintInput");
-    const btns = ["btn1","btn2","btn3","btn5"].map(id => document.getElementById(id));
+    const btns = ["btn1","btn2","btn3"].map(id => document.getElementById(id));
     const btnEdit = document.getElementById("btnEdit");
 
     function loadButtonValues() {
@@ -336,4 +338,3 @@
   </script>
 </body>
 </html>
-
