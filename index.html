@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JUPITER'S IO WEB 0.5 fee</title>
+  <link rel="icon" href="https://jup.ag/favicon-96x96.png">
+  <title>Jupiter Trade Widget</title>
   <script src="https://plugin.jup.ag/plugin-v1.js" data-preload defer></script>
   <style>
     :root {
@@ -21,19 +22,15 @@
       height: 100%;
       font-family: sans-serif;
       background-color: #0b0e13;
-      color: white;
-      overflow: hidden;
+      color: #e8f9ff;
+      overflow-x: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
       user-select: none;
     }
-
-    a {
-      color: #c7f284;
-    }
-
-    a:hover {
+	
+    a, a:hover, h2 {
       color: #c7f284;
     }
 
@@ -87,7 +84,6 @@
     }
 
     .amount-buttons {
-
       gap: 10px;
       margin-top: -65px;
 	  justify-content: center;
@@ -125,28 +121,34 @@
     }
 
     .icon-btn img {
-      width: 19.5px;
-      height: 19.5px;
+      width: 15px;
+      height: 15px;
       pointer-events: none;
     }
 
     /* Popup */
-    .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #1a1f29;
-      color: #c7f284;
-      padding: 14px 18px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-      display: none;
-      max-width: 280px;
-      text-align: justify;
-      font-size: 14px;
-      z-index: 1001;
-    }
+	.popup {
+	  position: fixed;
+	  top: 50%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+	  background: #1a1f29;
+	  color: #c7f284;
+	  padding: 14px 18px;
+	  border-radius: 12px;
+	  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+	  display: none;
+
+	  /* вот тут меняем */
+	  max-width: 400px;      /* шире */
+	  width: 70%;            /* адаптивность под маленький экран */
+	  max-height: 70vh;      /* ограничиваем по высоте */
+	  overflow-y: auto;      /* прокрутка если текста слишком много */
+
+	  text-align: justify;
+	  font-size: 14px;
+	  z-index: 1001;
+	}
 
     .popup.active {
       display: block;
@@ -196,14 +198,16 @@
   </div>
 
   <div id="faqPopup" class="popup">
-    <p>This popup will display notifications related to the development of the extension and website bridge, discounts, and other announcements. Only the sources explicitly listed here shall be deemed official. Any other sources are not official and may be misleading. For further information, please refer to the Frequently Asked Questions.</p>
+    <h2>Notification</h2>
+	<p>This popup will display sources related to the development of the extension and website bridge, discounts, and other announcements. Only the sources explicitly listed here shall be deemed official. Any other sources are not official and may be misleading. For further information, please refer to the Frequently Asked Questions.</p>
 	<p><a href="https://">FAQ</a> | <a href="https://">Github</a> | <a href="https://">Telegram</a></p>
   </div>
 
   <div id="infoPopup" class="popup">
-    <p>This website interacts directly with the Jupiter platform and does not collect, store, or process login credentials, passwords, or any other confidential or sensitive information. This process is handled entirely on the Jupiter side.</p>
+    <h2>Privacy</h2>
+	<p>This website interacts directly with the Jupiter platform and does not collect, store, or process login credentials, passwords, or any other confidential or sensitive information. This process is handled entirely on the Jupiter side.</p>
 	<p>The website functions as a simple bridge with low transaction fees between the extension and Jupiter, as developing an extension capable of interacting with multiple websites (terminal - extension - jupiter) is technically hard. You may consider using a disposable (burner) wallet through your cryptocurrency wallet, which removes the need for confirmation before each transaction.</p>
-	<p>For additional details about your privacy please refer to <a href="https://dev.jup.ag/docs/misc/privacy-policy">Jupiter’s Privacy Policy</a></p>
+	<p>For additional details about your privacy please refer to <a href="https://support.jup.ag/hc/en-us/p/privacy-policy">Jupiter’s Privacy Policy</a></p>
   </div>
 
   <script>
@@ -269,8 +273,8 @@
               initialAmount: solToLamports(amt),
               initialInputMint: DEFAULT_MINT,
               initialOutputMint: mint,
-              referralAccount: "7nwBzLE2cw5YvWZGrqaNEgELNHtAkGGaNSAnmySUE9KN",
-              referralFee: 50
+              /*referralAccount: "7nwBzLE2cw5YvWZGrqaNEgELNHtAkGGaNSAnmySUE9KN",
+              referralFee: 50*/
             }
           });
           lastApplied = { mint, amount: amt };
@@ -338,4 +342,3 @@
   </script>
 </body>
 </html>
-
