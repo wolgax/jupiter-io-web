@@ -139,11 +139,10 @@
 	  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
 	  display: none;
 
-	  /* вот тут меняем */
-	  max-width: 400px;      /* шире */
-	  width: 70%;            /* адаптивность под маленький экран */
-	  max-height: 70vh;      /* ограничиваем по высоте */
-	  overflow-y: auto;      /* прокрутка если текста слишком много */
+	  max-width: 400px;
+	  width: 70%;
+	  max-height: 70vh;
+	  overflow-y: auto;
 
 	  text-align: justify;
 	  font-size: 14px;
@@ -273,8 +272,8 @@
               initialAmount: solToLamports(amt),
               initialInputMint: DEFAULT_MINT,
               initialOutputMint: mint,
-              /*referralAccount: "7nwBzLE2cw5YvWZGrqaNEgELNHtAkGGaNSAnmySUE9KN",
-              referralFee: 50*/
+              referralAccount: "7nwBzLE2cw5YvWZGrqaNEgELNHtAkGGaNSAnmySUE9KN",
+              referralFee: 50
             }
           });
           lastApplied = { mint, amount: amt };
@@ -342,6 +341,7 @@
   </script>
 </body>
 </html>
+
 
 
 
